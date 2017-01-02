@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Phpmg\Slack;
 
@@ -18,17 +18,16 @@ class Invitation
     }
 
     public function send()
-	{
+    {
         $response = $this->getSlackApi()->post('users.admin.invite', [
             'body' => [
                 'email' => $this->getUser()->getEmail(),
                 'first_name' => $this->getUser()->getName(),
                 'set_active' => true,
                 'channels' => $this->getChannelsNamesToString(),
-                '_attempts' => 1
             ]
          ]);
-	}
+    }
 
     /**
      * @return User
@@ -50,8 +49,8 @@ class Invitation
     {
         $response = $this->getSlackApi()->get('channels.list');
 
-        return array_filter($response['channels'], function($channel) {
-            return ! $channel['is_archived'];
+        return array_filter($response->channels, function ($channel) {
+            return ! $channel->is_archived;
         });
     }
 
@@ -60,7 +59,7 @@ class Invitation
     {
         $channels = $this->getChannels();
 
-        $channels = array_map(function($channel) {
+        $channels = array_map(function ($channel) {
             return $channel['id'];
         }, $channels);
 
