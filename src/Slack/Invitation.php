@@ -60,7 +60,7 @@ class Invitation
         $channels = $this->getChannels();
 
         $channels = array_map(function ($channel) {
-            return $channel['id'];
+            return $channel->id;
         }, $channels);
 
         return implode(',', $channels);
